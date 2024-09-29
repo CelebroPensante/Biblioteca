@@ -1,10 +1,15 @@
 import os
+from pathlib import Path
 from create_database import create_livros_table
-from CRUD import connect_db, add_livro, get_livros, att_preço, remove_livro, buscar_livro_titulo,buscar_livro_id, buscar_livro_ano, buscar_livro_autor, buscar_livro_preço
+from CRUD import connect_db, add_livro, get_livros, att_preço, remove_livro, buscar_livro_titulo, buscar_livro_id, buscar_livro_ano, buscar_livro_autor, buscar_livro_preço
 
-conn = connect_db('DataBase/livros.db')
+base_dir = Path(__file__).resolve().parent.parent.parent
+db_path = base_dir / "meu_sistema_livraria" / "data" / "livros.db"
+
+conn = connect_db(db_path)
 create_livros_table(conn)
 
+# menusinho com os comandos, se quiser usa Tkinter para fazer uma interface grafica(ja q tu gosta dessas coisa)
 while True:
     os.system('cls' if os.name == 'nt' else 'clear')
     print("------Livraria------")
@@ -127,4 +132,4 @@ while True:
         break
     else:
         print("Opção inválida")
-    print("")    
+    print("")
