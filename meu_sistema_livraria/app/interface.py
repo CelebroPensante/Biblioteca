@@ -1,7 +1,9 @@
 import os
 from pathlib import Path
+import sys
 from create_database import create_livros_table
 from CRUD import connect_db, add_livro, get_livros, att_preço, remove_livro, buscar_livro_titulo, buscar_livro_id, buscar_livro_ano, buscar_livro_autor, buscar_livro_preço
+from create_csv import add_livro_csv, remove_livro_csv
 
 base_dir = Path(__file__).resolve().parent.parent.parent
 db_path = base_dir / "meu_sistema_livraria" / "data" / "livros.db"
@@ -33,6 +35,7 @@ while True:
         ano = int(input("Ano: "))
         preço = float(input("Preço: "))
         add_livro(conn, titulo, autor, ano, preço)
+        add_livro_csv(conn)
     elif op == "2":
         os.system('cls' if os.name == 'nt' else 'clear')
         print("---Listar livros---")
@@ -41,6 +44,17 @@ while True:
         livros = get_livros(conn)
         for livro in livros:
             print(livro)
+
+
+        print("")
+        print("0 - Voltar")
+        print("1 - Sair")
+
+        op = input("Escolha uma opção: ")
+        if op =="0":
+                continue
+        if op == "1":
+            sys. exit()
     elif op == "3":
         os.system('cls' if os.name == 'nt' else 'clear')
         print("---Atualizar preço---")
@@ -56,6 +70,7 @@ while True:
         print("")
         id = int(input("ID: "))
         remove_livro(conn, id)
+        remove_livro_csv(id)
     elif op == "5":
         os.system('cls' if os.name == 'nt' else 'clear')
         print("---Buscar livro---")
@@ -76,9 +91,17 @@ while True:
             titulo = input("Título: ")
             livros = buscar_livro_titulo(conn, titulo)
             print(livros)
-            op = input("digite 1 para voltar: ")
-            if op == "1":
+
+            
+            print("")
+            print("0 - Voltar")
+            print("1 - Sair")
+
+            op = input("Escolha uma opção: ")
+            if op =="0":
                 continue
+            if op == "1":
+                sys. exit()
         elif op_busca == "2":
             os.system('cls' if os.name == 'nt' else 'clear')
             print("---Buscar por autor---")
@@ -87,9 +110,17 @@ while True:
             autor = input("Autor: ")
             livros = buscar_livro_autor(conn, autor)
             print(livros)
-            op = input("digite 1 para voltar: ")
-            if op == "1":
+            
+            
+            print("")
+            print("0 - Voltar")
+            print("1 - Sair")
+
+            op = input("Escolha uma opção: ")
+            if op =="0":
                 continue
+            if op == "1":
+                sys. exit()
         elif op_busca == "3":
             os.system('cls' if os.name == 'nt' else 'clear')
             print("---Buscar por ano---")
@@ -98,9 +129,17 @@ while True:
             ano = int(input("Ano: "))
             livros = buscar_livro_ano(conn, ano)
             print(livros)
-            op = input("digite 1 para voltar: ")
-            if op == "1":
+            
+            
+            print("")
+            print("0 - Voltar")
+            print("1 - Sair")
+
+            op = input("Escolha uma opção: ")
+            if op =="0":
                 continue
+            if op == "1":
+                sys. exit()
         elif op_busca == "4":
             os.system('cls' if os.name == 'nt' else 'clear')
             print("---Buscar por preço---")
@@ -109,9 +148,17 @@ while True:
             preço = float(input("Preço: "))
             livros = buscar_livro_preço(conn, preço)
             print(livros)
-            op = input("digite 1 para voltar: ")
-            if op == "1":
+            
+            
+            print("")
+            print("0 - Voltar")
+            print("1 - Sair")
+
+            op = input("Escolha uma opção: ")
+            if op =="0":
                 continue
+            if op == "1":
+                sys. exit()
         elif op_busca == "5":
             os.system('cls' if os.name == 'nt' else 'clear')
             print("---Buscar por id---")
@@ -120,16 +167,23 @@ while True:
             id = int(input("ID: "))
             livros = buscar_livro_id(conn, id)
             print(livros)
+            
+            
             print("")
-            op = input("digite 1 para voltar: ")
-            if op == "1":
+            print("0 - Voltar")
+            print("1 - Sair")
+
+            op = input("Escolha uma opção: ")
+            if op =="0":
                 continue
+            if op == "1":
+                sys. exit()
         elif op_busca == "6":
             continue
         else:
             print("Opção inválida")
     elif op == "6":
-        break
+        sys. exit()
     else:
         print("Opção inválida")
     print("")
