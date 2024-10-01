@@ -2,8 +2,8 @@ import os
 from pathlib import Path
 import sys
 from create_database import create_livros_table
-from CRUD import connect_db, add_livro, get_livros, att_preço, remove_livro, buscar_livro_titulo, buscar_livro_id, buscar_livro_ano, buscar_livro_autor, buscar_livro_preço
-from create_csv import add_livro_csv, remove_livro_csv
+from CRUD import connect_db, add_livro, get_livros, att_preço, remove_livro, buscar_livro_titulo, buscar_livro_id, buscar_livro_ano, buscar_livro_autor, buscar_livro_preço, sync_database_with_csv
+from export_csv import add_livro_csv, remove_livro_csv
 
 base_dir = Path(__file__).resolve().parent.parent.parent
 db_path = base_dir / "meu_sistema_livraria" / "data" / "livros.db"
@@ -22,7 +22,8 @@ while True:
     print("3 - Atualizar preço")
     print("4 - Remover livro")
     print("5 - Buscar livro")
-    print("6 - Sair")
+    print("6 - Atualizar database")
+    print("0 - Sair")
 
     op = input("Escolha uma opção: ")
     if op == "1":
@@ -182,7 +183,11 @@ while True:
             continue
         else:
             print("Opção inválida")
-    elif op == "6":
+
+    elif op == "6":  # Nova opção para sincronizar
+        sync_database_with_csv(conn)
+
+    elif op == "0":
         sys. exit()
     else:
         print("Opção inválida")

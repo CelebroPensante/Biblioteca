@@ -1,4 +1,5 @@
 import sqlite3
+import csv
 from pathlib import Path
 from backup_generator import create_backup
 
@@ -93,3 +94,38 @@ def buscar_livro_id(conn, id):
             SELECT * FROM livros
             WHERE id = ?
         """, (id,)).fetchall()
+    
+def sync_database_with_csv(conn):
+    # Caminho do arquivo CSV
+    base_dir = Path(__file__).resolve().parent.parent
+    path_csv = base_dir / "exports" / "livros_exportados.csv"
+
+    # Verifica se o arquivo CSV existe
+    if not path_csv.exists():
+        print("Arquivo CSV não encontrado")
+        return
+
+    # Lê os dados do CSV
+    with open(path_csv, mode='r', newline='') as arquivo:
+        reader = csv.reader(arquivo)
+        cabecalho = next(reader)  # Ignora o cabeçalho
+
+        for linha in reader:
+            id_csv, titulo, autor, ano, preco = linha
+
+            # Verifica se o livro já existe no banco de dados
+            livro_existente = conn.execute("""
+                SELECT * FROM livros WHERE id = ?
+            """, (id_csv,)).fetchone()
+
+            if livro_existente:
+                print(f"Livro com ID {id_csv} já está no banco de dados, pulando...")
+            else:
+                # Se não existir, insere no banco de dados
+                conn.execute("""
+                    INSERT INTO livros (id, titulo, autor, ano, preço)
+                    VALUES (?, ?, ?, ?, ?)
+                """, (id_csv, titulo, autor, int(ano), float(preco)))
+                print(f"Livro com ID {id_csv} adicionado ao banco de dados")
+
+    conn.commit()
