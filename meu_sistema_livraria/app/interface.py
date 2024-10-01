@@ -26,7 +26,8 @@ while True:
     print("0 - Sair")
 
     op = input("Escolha uma opção: ")
-    if op == "1":
+
+    if op == "1": # 1 - Adicionar livro
         os.system('cls' if os.name == 'nt' else 'clear')
         print("---Adicionar livro---")
         print("---------------------")
@@ -37,7 +38,8 @@ while True:
         preço = float(input("Preço: "))
         add_livro(conn, titulo, autor, ano, preço)
         add_livro_csv(conn)
-    elif op == "2":
+
+    elif op == "2": # 2 - Listar livros
         os.system('cls' if os.name == 'nt' else 'clear')
         print("---Listar livros---")
         print("-------------------")
@@ -56,7 +58,8 @@ while True:
                 continue
         if op == "1":
             sys. exit()
-    elif op == "3":
+
+    elif op == "3": # 3 - Atualizar preço
         os.system('cls' if os.name == 'nt' else 'clear')
         print("---Atualizar preço---")
         print("----------------------")
@@ -64,7 +67,8 @@ while True:
         id = int(input("ID: "))
         preço = float(input("Preço: "))
         att_preço(conn, id, preço)
-    elif op == "4":
+
+    elif op == "4": # 4 - Remover livro
         os.system('cls' if os.name == 'nt' else 'clear')
         print("---Remover livro---")
         print("-------------------")
@@ -72,7 +76,8 @@ while True:
         id = int(input("ID: "))
         remove_livro(conn, id)
         remove_livro_csv(id)
-    elif op == "5":
+
+    elif op == "5": # 5 - Buscar livro
         os.system('cls' if os.name == 'nt' else 'clear')
         print("---Buscar livro---")
         print("------------------")
@@ -81,10 +86,11 @@ while True:
         print("2 - Autor")
         print("3 - Ano")
         print("4 - Preço")
-        print("5 - id")
-        print("6 - voltar")
+        print("5 - ID")
+        print("6 - Voltar")
         op_busca = input("escolha uma opçao:")
-        if op_busca == "1":
+
+        if op_busca == "1": # 1 - Título
             os.system('cls' if os.name == 'nt' else 'clear')
             print("---Buscar por título---")
             print("------------------------")
@@ -103,7 +109,8 @@ while True:
                 continue
             if op == "1":
                 sys. exit()
-        elif op_busca == "2":
+
+        elif op_busca == "2": # 2 - Autor
             os.system('cls' if os.name == 'nt' else 'clear')
             print("---Buscar por autor---")
             print("-----------------------")
@@ -122,7 +129,8 @@ while True:
                 continue
             if op == "1":
                 sys. exit()
-        elif op_busca == "3":
+
+        elif op_busca == "3": # 3 - Ano
             os.system('cls' if os.name == 'nt' else 'clear')
             print("---Buscar por ano---")
             print("---------------------")
@@ -141,7 +149,8 @@ while True:
                 continue
             if op == "1":
                 sys. exit()
-        elif op_busca == "4":
+
+        elif op_busca == "4": # 4 - Preço
             os.system('cls' if os.name == 'nt' else 'clear')
             print("---Buscar por preço---")
             print("-----------------------")
@@ -160,7 +169,8 @@ while True:
                 continue
             if op == "1":
                 sys. exit()
-        elif op_busca == "5":
+
+        elif op_busca == "5": # 5 - ID
             os.system('cls' if os.name == 'nt' else 'clear')
             print("---Buscar por id---")
             print("--------------------")
@@ -179,15 +189,16 @@ while True:
                 continue
             if op == "1":
                 sys. exit()
-        elif op_busca == "6":
+
+        elif op_busca == "6": # 6 - Voltar"
             continue
         else:
             print("Opção inválida")
 
-    elif op == "6":  # Nova opção para sincronizar
+    elif op == "6": # 6 - Atualizar database
         sync_database_with_csv(conn)
 
-    elif op == "0":
+    elif op == "0": # 0 - Sair
         sys. exit()
     else:
         print("Opção inválida")

@@ -100,7 +100,7 @@ def sync_database_with_csv(conn):
     base_dir = Path(__file__).resolve().parent.parent
     path_csv = base_dir / "exports" / "livros_exportados.csv"
 
-    # Verifica se o arquivo CSV existe
+    # Vê se o arquivo CSV existe
     if not path_csv.exists():
         print("Arquivo CSV não encontrado")
         return
@@ -119,13 +119,12 @@ def sync_database_with_csv(conn):
             """, (id_csv,)).fetchone()
 
             if livro_existente:
-                print(f"Livro com ID {id_csv} já está no banco de dados, pulando...")
+                continue
             else:
                 # Se não existir, insere no banco de dados
                 conn.execute("""
                     INSERT INTO livros (id, titulo, autor, ano, preço)
                     VALUES (?, ?, ?, ?, ?)
                 """, (id_csv, titulo, autor, int(ano), float(preco)))
-                print(f"Livro com ID {id_csv} adicionado ao banco de dados")
-
+                
     conn.commit()
